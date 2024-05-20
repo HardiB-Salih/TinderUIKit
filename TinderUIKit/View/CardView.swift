@@ -14,22 +14,22 @@ enum SwipeDirection: Int {
 
 class CardView: UIView {
     
+    private var cardViewModel: CardViewModel
+    
     //MARK:  Properties
     private let gradientLayer = CAGradientLayer()
     
-    private let imageView: UIImageView = {
+    private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
-        imageView.image = #imageLiteral(resourceName: "lady4c.jpg")
+        imageView.image = cardViewModel.user.images.first
         return imageView
     }()
     
-    private let infoLable : UILabel = {
+    private lazy var infoLable : UILabel = {
         let lable = UILabel()
         lable.numberOfLines = 2
-        let attributedText = NSMutableAttributedString(string: "Jane Doe", attributes: [.font: UIFont.systemFont(ofSize: 32, weight: .heavy), .foregroundColor: UIColor.white])
-        attributedText.append(NSAttributedString(string: "  20", attributes: [.font: UIFont.systemFont(ofSize: 24), .foregroundColor: UIColor.white]))
-        lable.attributedText = attributedText
+        lable.attributedText = cardViewModel.user.attributedNameWithAge
         return lable
     }()
     
@@ -42,9 +42,12 @@ class CardView: UIView {
     }()
     
     //MARK: - Lifecycle
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(viewModel: CardViewModel) {
+        self.cardViewModel = viewModel
+        super.init(frame: .zero)
+        
         setUpUI()
+        
         
         
     }
@@ -128,10 +131,21 @@ class CardView: UIView {
 
 
     
+    /// Handles the tap gesture to change the displayed photo.
+    ///
+    /// - Parameter sender: The UITapGestureRecognizer object.
     @objc func handleChangePhoto(sender: UITapGestureRecognizer) {
-        print("Debug: Did Tap on photo")
-
+        let location = sender.location(in: nil).x
+        let shouldShowNextPhoto = location > self.frame.width / 2
+        
+        if shouldShowNextPhoto {
+            cardViewModel.showNextPhoto()
+        } else {
+            cardViewModel.showPreviousPhoto()
+        }
+        imageView.crossDissolveTransition(toImage: cardViewModel.imageToShow, duration: 0.7)
     }
+
     //MARK: - Private
     /// Handles the pan gesture recognizer to change the position of the card.
     /// - Parameter sender: The UIPanGestureRecognizer object.
@@ -164,8 +178,7 @@ class CardView: UIView {
         // Checks if the card should be dismissed based on the horizontal translation
         let shouldDismissCard = abs(translation.x) > 100
         
-        // Animates the card to its reset position
-        UIView.animate(withDuration: 0.75, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.1) {
+        bounceAnimation {
             if shouldDismissCard {
                 // If the card should be dismissed, translates it off-screen horizontally
                 let xTranslation = CGFloat(direction.rawValue) * 1000
@@ -175,7 +188,7 @@ class CardView: UIView {
                 // If the card should not be dismissed, resets its transform to identity (original position)
                 self.transform = .identity
             }
-        } completion: { _ in
+        } completion: {
             // Removes the card from its superview if it was dismissed
             if shouldDismissCard {
                 self.removeFromSuperview()

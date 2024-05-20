@@ -16,6 +16,10 @@
 		D592DDD72BFAA16F007464C8 /* HomeNavigationStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D592DDD62BFAA16F007464C8 /* HomeNavigationStackView.swift */; };
 		D592DDD92BFAAAA0007464C8 /* ButtomControlsStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D592DDD82BFAAAA0007464C8 /* ButtomControlsStackView.swift */; };
 		D592DDDB2BFB1EE8007464C8 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D592DDDA2BFB1EE8007464C8 /* CardView.swift */; };
+		D592DDDD2BFB4A7D007464C8 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D592DDDC2BFB4A7D007464C8 /* User.swift */; };
+		D592DDDF2BFB4C17007464C8 /* CardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D592DDDE2BFB4C17007464C8 /* CardViewModel.swift */; };
+		D592DDE12BFB4F21007464C8 /* String + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D592DDE02BFB4F21007464C8 /* String + Extensions.swift */; };
+		D592DDE32BFB5DB6007464C8 /* UIView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D592DDE22BFB5DB6007464C8 /* UIView + Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +34,10 @@
 		D592DDD62BFAA16F007464C8 /* HomeNavigationStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNavigationStackView.swift; sourceTree = "<group>"; };
 		D592DDD82BFAAAA0007464C8 /* ButtomControlsStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtomControlsStackView.swift; sourceTree = "<group>"; };
 		D592DDDA2BFB1EE8007464C8 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		D592DDDC2BFB4A7D007464C8 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		D592DDDE2BFB4C17007464C8 /* CardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewModel.swift; sourceTree = "<group>"; };
+		D592DDE02BFB4F21007464C8 /* String + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String + Extensions.swift"; sourceTree = "<group>"; };
+		D592DDE22BFB5DB6007464C8 /* UIView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +88,7 @@
 		D592DDCA2BFA9BD8007464C8 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D592DDDC2BFB4A7D007464C8 /* User.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -97,6 +106,7 @@
 		D592DDCE2BFA9C08007464C8 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				D592DDDE2BFB4C17007464C8 /* CardViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -113,6 +123,8 @@
 			isa = PBXGroup;
 			children = (
 				D592DDD42BFAA0C0007464C8 /* Extensions.swift */,
+				D592DDE02BFB4F21007464C8 /* String + Extensions.swift */,
+				D592DDE22BFB5DB6007464C8 /* UIView + Extension.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -195,12 +207,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				D592DDDB2BFB1EE8007464C8 /* CardView.swift in Sources */,
+				D592DDE12BFB4F21007464C8 /* String + Extensions.swift in Sources */,
 				D592DDB72BFA9BB1007464C8 /* AppDelegate.swift in Sources */,
 				D592DDB92BFA9BB1007464C8 /* SceneDelegate.swift in Sources */,
+				D592DDE32BFB5DB6007464C8 /* UIView + Extension.swift in Sources */,
 				D592DDD72BFAA16F007464C8 /* HomeNavigationStackView.swift in Sources */,
+				D592DDDD2BFB4A7D007464C8 /* User.swift in Sources */,
 				D592DDD32BFA9C8D007464C8 /* HomeController.swift in Sources */,
 				D592DDD92BFAAAA0007464C8 /* ButtomControlsStackView.swift in Sources */,
 				D592DDD52BFAA0C0007464C8 /* Extensions.swift in Sources */,
+				D592DDDF2BFB4C17007464C8 /* CardViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
