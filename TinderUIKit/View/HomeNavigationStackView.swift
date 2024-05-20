@@ -28,6 +28,7 @@ class HomeNavigationStackView: UIStackView {
 
         settingButton.setImage(settingImage.withRenderingMode(.alwaysOriginal) , for: .normal)
         messageButton.setImage(messageImage.withRenderingMode(.alwaysOriginal) , for: .normal)
+        settingButton.addTarget(self, action: #selector(settingButtonClicked), for: .touchUpInside)
 
         [settingButton, UIView(), tinderIcon, UIView(), messageButton].forEach { view in
             addArrangedSubview(view)
@@ -40,5 +41,24 @@ class HomeNavigationStackView: UIStackView {
     
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    /// Save the updated value of logged_in to UserDefaults
+    private func userLogOut(){
+        //        UserDefaults.standard.set(true, forKey: "logged_in")
+        NotificationCenter.default.post(name: UserDefaults.didChangeNotification, object: nil)
+    }
+    
+    @objc func settingButtonClicked() {
+        AuthServices.signOut { error in
+            if let error = error {
+                // Handle sign-out error
+                print("Sign out failed: \(error.localizedDescription)")
+            } else {
+                // Sign out successful
+                print("User signed out successfully.")
+                self.userLogOut()
+            }
+        }
     }
 }

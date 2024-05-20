@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import FirebaseAuth
+
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -14,11 +16,49 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
         guard let windowScene = (scene as? UIWindowScene) else { return }
-        window = UIWindow(windowScene: windowScene)
-        window?.makeKeyAndVisible()
-        window?.rootViewController = HomeController()
+        let window = UIWindow(windowScene: windowScene)
+        self.window = window
+        notificationObserver()
+        reloadRootViewController()
+
     }
     
+    private func notificationObserver() {
+        NotificationCenter.default.removeObserver(self, name: UserDefaults.didChangeNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(userDefaultsDidChange), name: UserDefaults.didChangeNotification, object: nil)
+    }
+    
+    private func reloadRootViewController() {
+        let rootViewController: UIViewController
+        
+        if FirebaseAuth.Auth.auth().currentUser != nil {
+            //            let vc = TabBarController()
+            //            rootViewController = vc
+            
+            //             if need to add a single view insted of TabBarController.
+            let vc = HomeController()
+            let navVC = UINavigationController(rootViewController: vc)
+            let backButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+            vc.navigationItem.backBarButtonItem = backButtonItem
+            navVC.navigationBar.tintColor = .link
+            rootViewController = navVC
+        } else {
+            let vc = LoginViewController()
+            let navVC = UINavigationController(rootViewController: vc)
+            let backButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+            vc.navigationItem.backBarButtonItem = backButtonItem
+            navVC.navigationBar.tintColor = .link
+            rootViewController = navVC
+        }
+        
+        window?.rootViewController = rootViewController
+        window?.makeKeyAndVisible()
+    }
+    
+    //MARK: -OBJC
+    @objc private func userDefaultsDidChange() {
+        reloadRootViewController()
+    }
     
 
     

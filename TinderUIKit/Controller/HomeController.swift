@@ -25,6 +25,7 @@ class HomeController: UIViewController {
     //MARK: - Life sycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.navigationBar.isHidden = true
         configureUI()
         configureCards()
     }
