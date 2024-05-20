@@ -17,6 +17,7 @@ class HomeController: UIViewController {
         view.backgroundColor = .systemMint
         view.layer.cornerRadius = 30
         view.layer.cornerCurve = .continuous
+//        view.clipsToBounds = true
         return view
     }()
     private let bottomStack = ButtomControlsStackView()
@@ -25,10 +26,22 @@ class HomeController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
+        configureCards()
     }
     
     
     //MARK: Helpers
+    func configureCards() {
+        let cardView1 = CardView()
+        let cardView2 = CardView()
+        
+        deckView.addSubview(cardView1)
+        deckView.addSubview(cardView2)
+        
+        cardView1.fillSuperview()
+        cardView2.fillSuperview()
+    }
+    
     func configureUI() {
         view.backgroundColor = .systemBackground
         let stack = UIStackView(arrangedSubviews: [topStack, deckView, bottomStack])

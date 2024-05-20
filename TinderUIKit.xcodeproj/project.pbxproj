@@ -15,6 +15,7 @@
 		D592DDD52BFAA0C0007464C8 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D592DDD42BFAA0C0007464C8 /* Extensions.swift */; };
 		D592DDD72BFAA16F007464C8 /* HomeNavigationStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D592DDD62BFAA16F007464C8 /* HomeNavigationStackView.swift */; };
 		D592DDD92BFAAAA0007464C8 /* ButtomControlsStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D592DDD82BFAAAA0007464C8 /* ButtomControlsStackView.swift */; };
+		D592DDDB2BFB1EE8007464C8 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D592DDDA2BFB1EE8007464C8 /* CardView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		D592DDD42BFAA0C0007464C8 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		D592DDD62BFAA16F007464C8 /* HomeNavigationStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNavigationStackView.swift; sourceTree = "<group>"; };
 		D592DDD82BFAAAA0007464C8 /* ButtomControlsStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtomControlsStackView.swift; sourceTree = "<group>"; };
+		D592DDDA2BFB1EE8007464C8 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +89,7 @@
 			children = (
 				D592DDD62BFAA16F007464C8 /* HomeNavigationStackView.swift */,
 				D592DDD82BFAAAA0007464C8 /* ButtomControlsStackView.swift */,
+				D592DDDA2BFB1EE8007464C8 /* CardView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -191,6 +194,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D592DDDB2BFB1EE8007464C8 /* CardView.swift in Sources */,
 				D592DDB72BFA9BB1007464C8 /* AppDelegate.swift in Sources */,
 				D592DDB92BFA9BB1007464C8 /* SceneDelegate.swift in Sources */,
 				D592DDD72BFAA16F007464C8 /* HomeNavigationStackView.swift in Sources */,
