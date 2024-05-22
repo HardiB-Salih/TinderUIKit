@@ -13,12 +13,19 @@ enum SwipeDirection: Int {
     case right = 1
 }
 
+protocol CardViewDelegate: AnyObject {
+    func cardView(_ View: CardView, wantToShowProfileFor user: User)
+}
+
 class CardView: UIView {
     
     private var cardViewModel: CardViewModel
     
     //MARK:  Properties
+    weak var delegate: CardViewDelegate?
     private let gradientLayer = CAGradientLayer()
+    private lazy var barStackView = SegmentedBarView(numberOfSegments: cardViewModel.imageURLs.count)
+    
     
     private var imageView: UIImageView = {
         let imageView = UIImageView()
@@ -29,7 +36,7 @@ class CardView: UIView {
     private lazy var infoLable : UILabel = {
         let lable = UILabel()
         lable.numberOfLines = 2
-        lable.attributedText = cardViewModel.user.attributedNameWithAge
+        lable.attributedText = cardViewModel.user.attributedNameWithAge()
         return lable
     }()
     
@@ -45,7 +52,7 @@ class CardView: UIView {
     init(viewModel: CardViewModel) {
         self.cardViewModel = viewModel
         super.init(frame: .zero)
-        imageView.sd_setImage(with: viewModel.imageUrl)
+        imageView.sd_setImage(with: URL(string: viewModel.imageToShow))
         setUpUI()
     }
     
@@ -68,7 +75,7 @@ class CardView: UIView {
         configureGestureRecognizer()
 
         // We have to add views in Order
-        backgroundColor = .systemRed
+        backgroundColor = .white
         addSubview(imageView)
         imageView.fillSuperview()
 
@@ -83,7 +90,15 @@ class CardView: UIView {
         infoButton.setDimensions(height: 40, width: 40)
         infoButton.bottom(toView: infoLable)
         infoButton.anchor(right: rightAnchor, paddingRight: 16)
+        infoButton.addTarget(self, action: #selector(infoButtonClicked), for: .touchUpInside)
+        
+        if cardViewModel.imageURLs.count > 1 {
+            configureBarStackView()
+        }
+       
     }
+    
+
     
     /// Configures a gradient layer for the view.
     func configureGradientLayer() {
@@ -107,6 +122,10 @@ class CardView: UIView {
     
     
     //MARK: -OBJC
+    @objc func infoButtonClicked() {
+        delegate?.cardView(self, wantToShowProfileFor: cardViewModel.user)
+    }
+    
     /// Handles the pan gesture recognizer for the card.
     /// - Parameter sender: The UIPanGestureRecognizer object.
     @objc func handlePanGesture(sender: UIPanGestureRecognizer) {
@@ -140,7 +159,19 @@ class CardView: UIView {
         } else {
             cardViewModel.showPreviousPhoto()
         }
-//        imageView.crossDissolveTransition(toImage: cardViewModel.imageToShow, duration: 0.7)
+
+        imageView.crossDissolveTransition(toImageURL: cardViewModel.imageToShow, duration: 0.7)
+        if cardViewModel.imageURLs.count > 1 {
+            barStackView.setHighlighted(index: cardViewModel.index)
+        }
+    }
+    
+    func configureBarStackView() {
+        addSubview(barStackView)
+        barStackView.anchor(top: topAnchor, left: leftAnchor, right: rightAnchor,
+                            paddingTop: 8, paddingLeft: 30 ,paddingRight: 30 ,
+                            height: 4 )
+        
     }
 
     //MARK: - Private

@@ -15,7 +15,6 @@ struct User {
     let uid: String
     var imageURLs: [String]
     let createdAt: Timestamp
-    var images: [UIImage]
     var profession: String
     var bio: String
     var minSeakingAge: Int
@@ -24,9 +23,9 @@ struct User {
     
     
     //MARK: - Computed properties
-    var attributedNameWithAge : NSMutableAttributedString {
-        let attributedText = fullname.mutableAttributedString(font: UIFont.systemFont(ofSize: 32, weight: .heavy))
-        attributedText.append("  \(age)".attributedString(font: UIFont.systemFont(ofSize: 24)))
+    func attributedNameWithAge(textColor: UIColor = .white) -> NSMutableAttributedString {
+        let attributedText = fullname.capitalized.mutableAttributedString(font: .systemFont(of: .title1, weight: .heavy), textColor: textColor)
+        attributedText.append("  \(age)".attributedString(font: .systemFont(of: .title3, weight: .light), textColor: textColor))
         return attributedText
     }
     
@@ -37,7 +36,6 @@ struct User {
         self.uid = dictionary[.uid] as? String ?? ""
         self.imageURLs = dictionary[.imageURLs] as? [String] ?? []
         self.createdAt = dictionary[.createdAt] as? Timestamp ?? Timestamp()
-        self.images = dictionary[.images] as? [UIImage] ?? []
         self.profession = dictionary[.profession] as? String ?? ""
         self.bio = dictionary[.bio] as? String ?? ""
         self.minSeakingAge = dictionary[.minSeakingAge] as? Int ?? 18
@@ -54,7 +52,6 @@ extension String {
     static let uid = "uid"
     static let imageURLs = "imageURLs"
     static let createdAt = "createdAt"
-    static let images = "images"
     static let profession = "profession"
     static let bio = "bio"
     static let minSeakingAge = "minSeakingAge"

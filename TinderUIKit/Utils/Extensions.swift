@@ -12,7 +12,7 @@ public struct AnchoredConstraints {
 }
 
 extension UIColor {
-    static let barDeselectedColor = UIColor(white: 0, alpha: 0.1)
+    static let barDeselectedColor = UIColor(white: 0, alpha: 0.4)
 }
 
 extension UIViewController {

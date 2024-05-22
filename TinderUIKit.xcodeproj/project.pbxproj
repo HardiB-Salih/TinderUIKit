@@ -14,6 +14,11 @@
 		D54628EF2BFCC75900B2903A /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54628EE2BFCC75900B2903A /* SettingCell.swift */; };
 		D54628F22BFCF90400B2903A /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = D54628F12BFCF90400B2903A /* SDWebImage */; };
 		D54628F62BFD1B1400B2903A /* JGProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = D54628F52BFD1B1400B2903A /* JGProgressHUD */; };
+		D54628F82BFDEE9600B2903A /* SettingFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54628F72BFDEE9600B2903A /* SettingFooter.swift */; };
+		D54628FA2BFE190900B2903A /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54628F92BFE190800B2903A /* ProfileController.swift */; };
+		D54628FC2BFE1D9900B2903A /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54628FB2BFE1D9900B2903A /* ProfileCell.swift */; };
+		D54628FE2BFE297F00B2903A /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54628FD2BFE297F00B2903A /* ProfileViewModel.swift */; };
+		D54629002BFE337C00B2903A /* SegmentedBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54628FF2BFE337B00B2903A /* SegmentedBarView.swift */; };
 		D592DDB72BFA9BB1007464C8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D592DDB62BFA9BB1007464C8 /* AppDelegate.swift */; };
 		D592DDB92BFA9BB1007464C8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D592DDB82BFA9BB1007464C8 /* SceneDelegate.swift */; };
 		D592DDC02BFA9BB9007464C8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D592DDBF2BFA9BB9007464C8 /* Assets.xcassets */; };
@@ -47,6 +52,11 @@
 		D54628EA2BFCADC100B2903A /* SettingHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingHeader.swift; sourceTree = "<group>"; };
 		D54628EC2BFCC66700B2903A /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
 		D54628EE2BFCC75900B2903A /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
+		D54628F72BFDEE9600B2903A /* SettingFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingFooter.swift; sourceTree = "<group>"; };
+		D54628F92BFE190800B2903A /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
+		D54628FB2BFE1D9900B2903A /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
+		D54628FD2BFE297F00B2903A /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		D54628FF2BFE337B00B2903A /* SegmentedBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedBarView.swift; sourceTree = "<group>"; };
 		D592DDB32BFA9BB1007464C8 /* TinderUIKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TinderUIKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D592DDB62BFA9BB1007464C8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D592DDB82BFA9BB1007464C8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -140,6 +150,9 @@
 				D592DDDA2BFB1EE8007464C8 /* CardView.swift */,
 				D54628EA2BFCADC100B2903A /* SettingHeader.swift */,
 				D54628EE2BFCC75900B2903A /* SettingCell.swift */,
+				D54628F72BFDEE9600B2903A /* SettingFooter.swift */,
+				D54628FB2BFE1D9900B2903A /* ProfileCell.swift */,
+				D54628FF2BFE337B00B2903A /* SegmentedBarView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -149,6 +162,7 @@
 			children = (
 				D592DDDE2BFB4C17007464C8 /* CardViewModel.swift */,
 				D54628EC2BFCC66700B2903A /* SettingViewModel.swift */,
+				D54628FD2BFE297F00B2903A /* ProfileViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -159,6 +173,7 @@
 				D592DDE42BFB616B007464C8 /* Authentication */,
 				D592DDD22BFA9C8D007464C8 /* HomeController.swift */,
 				D54628E82BFCA62A00B2903A /* SettingController.swift */,
+				D54628F92BFE190800B2903A /* ProfileController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -279,9 +294,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D54628FA2BFE190900B2903A /* ProfileController.swift in Sources */,
 				D592DDEA2BFB74BD007464C8 /* CustomTextField.swift in Sources */,
 				D592DDE62BFB6181007464C8 /* LoginViewController.swift in Sources */,
+				D54628FE2BFE297F00B2903A /* ProfileViewModel.swift in Sources */,
 				D592DDDB2BFB1EE8007464C8 /* CardView.swift in Sources */,
+				D54628F82BFDEE9600B2903A /* SettingFooter.swift in Sources */,
 				D592DDE12BFB4F21007464C8 /* String + Extensions.swift in Sources */,
 				D592DDF02BFBB013007464C8 /* AuthenticationViewModel.swift in Sources */,
 				D592DDB72BFA9BB1007464C8 /* AppDelegate.swift in Sources */,
@@ -289,7 +307,9 @@
 				D592DDFF2BFBD016007464C8 /* Services.swift in Sources */,
 				D54628E42BFC709400B2903A /* Constant.swift in Sources */,
 				D592DDE82BFB6192007464C8 /* RegistrationViewController.swift in Sources */,
+				D54629002BFE337C00B2903A /* SegmentedBarView.swift in Sources */,
 				D592DDB92BFA9BB1007464C8 /* SceneDelegate.swift in Sources */,
+				D54628FC2BFE1D9900B2903A /* ProfileCell.swift in Sources */,
 				D54628EB2BFCADC100B2903A /* SettingHeader.swift in Sources */,
 				D592DDEE2BFB8309007464C8 /* UIButton + Extension.swift in Sources */,
 				D54628EF2BFCC75900B2903A /* SettingCell.swift in Sources */,

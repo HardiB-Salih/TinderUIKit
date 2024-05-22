@@ -10,25 +10,24 @@ import UIKit
 class CardViewModel {
     let user: User
     private var imageIndex = 0
-    
-    let imageUrl : URL?
     let imageURLs : [String]
-//    var imageToShow: String {
-//        return user.images[imageIndex]
-//    }
+    
+    //computed Property
+    var index: Int { return imageIndex }
+    var imageToShow: String {
+        return imageURLs[imageIndex]
+    }
     
     init(user: User) {
         self.user = user
-//        imageUrl = URL(string: user.profileImageUrl)
         self.imageURLs = user.imageURLs
-        imageUrl = URL(string: imageURLs[0])
     }
     
     /// Advances to the next photo in the user's image collection.
     ///
     /// - Note: If the current image is the last one in the collection, this method has no effect.
     func showNextPhoto() {
-        guard imageIndex < user.images.count - 1 else { return }
+        guard imageIndex < imageURLs.count - 1 else { return }
         imageIndex += 1
     }
 

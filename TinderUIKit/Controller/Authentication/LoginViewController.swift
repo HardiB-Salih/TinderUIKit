@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import JGProgressHUD
 
 class LoginViewController: UIViewController {
     
@@ -109,9 +110,12 @@ class LoginViewController: UIViewController {
     
     //MARK: -Action
     @objc func signInButtonClicked() {
+        let hud = JGProgressHUD(style: .dark)
+        hud.show(in: view, animated: true)
         AuthServices.signIn(withEmail: viewModel.email, password: viewModel.password) {[weak self] result in
             switch result {
             case .success( _ ):
+                hud.dismiss(animated: true)
                 self?.userLoggedIn()
             case .failure(let failure):
                 print("Failed To Login \(failure.localizedDescription)")

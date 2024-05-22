@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import JGProgressHUD
 class RegistrationViewController: UIViewController {
     
     private var viewModel = RegistrationViewModel()
@@ -137,8 +137,11 @@ class RegistrationViewController: UIViewController {
     }
     
     @objc private func signUpButtonClicked() {
+        let hud = JGProgressHUD(style: .dark)
+        hud.show(in: view, animated: true)
         guard let image = selectPhotoButton.imageView?.image, image != #imageLiteral(resourceName: "plus_photo")  else {
             print("Please Select A Photo")
+            hud.dismiss()
             return
         }
         let authCredential = AuthCredential(email: viewModel.email,
@@ -151,6 +154,7 @@ class RegistrationViewController: UIViewController {
             }
             
             print("Success: Leave this page")
+            hud.dismiss(animated: true)
             self?.userLoggedIn()
         }
         

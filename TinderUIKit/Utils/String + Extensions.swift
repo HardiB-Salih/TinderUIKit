@@ -8,6 +8,12 @@
 import UIKit
 
 extension String {
+    
+    var isNotEmpty: Bool {
+        return !self.isEmpty
+    }
+    
+    
     /// Creates a mutable attributed string with specified font and text color.
     /// - Parameters:
     ///   - font: The font to apply to the string.

@@ -20,16 +20,8 @@ class HomeController: UIViewController {
         }
     }
     
-    
     private let topStack = HomeNavigationStackView()
-    private let deckView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .systemMint
-        view.layer.cornerRadius = 30
-        view.layer.cornerCurve = .continuous
-//        view.clipsToBounds = true
-        return view
-    }()
+    private let deckView = UIView()
     private let bottomStack = ButtomControlsStackView()
     
     //MARK: - Life sycle
@@ -40,14 +32,6 @@ class HomeController: UIViewController {
         configureUI()
         fetchCurrentUser()
         fetchUsers()
-        
-        
-        
-//        // Usage Example
-//        let downloadUrl = "https://firebasestorage.googleapis.com:443/v0/b/tinderuikit.appspot.com/o/images%2Fprofile%2FCBBEB38D-1280-4C88-A057-280123D8A9F2.jpeg?alt=media&token=80f054ea-e149-422f-a28f-6a8158392c57"
-//        
-//        let path = Services.extractPathFromUrl(downloadUrl)
-//        print("DEBUG: THE PATH IS: \(path!)")
     }
     
     //MARK: Helpers
@@ -77,6 +61,7 @@ class HomeController: UIViewController {
     func configureCards() {
         viewModels.forEach { viewModel in
             let cardView = CardView(viewModel: viewModel)
+            cardView.delegate = self
             deckView.addSubview(cardView)
             cardView.fillSuperview()
         }
@@ -127,6 +112,15 @@ extension HomeController: SettingControllerDelegate {
     func settingController(_ controller: SettingController, wantsToUpdate user: User) {
         controller.dismiss(animated: true)
         self.currentUser = user
+    }
+}
+
+    //MARK: - CardViewDelegate
+extension HomeController: CardViewDelegate {
+    func cardView(_ View: CardView, wantToShowProfileFor user: User) {
+        let vc = ProfileController(user: user)
+        vc.modalPresentationStyle = .fullScreen
+        present(vc, animated: true)
     }
     
     

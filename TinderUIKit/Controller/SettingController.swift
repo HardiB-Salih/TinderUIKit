@@ -21,6 +21,7 @@ class SettingController: UITableViewController {
     //MARK: - Properties
 
     private lazy var headerView = SettingHeader(user: user)
+    private lazy var footerView = SettingFooter()
     private let imagePicker = UIImagePickerController()
     private var imageInex = 1
     weak var delegate: SettingControllerDelegate?
@@ -47,13 +48,19 @@ class SettingController: UITableViewController {
         hud.textLabel.text = "Saving Image"
         hud.show(in: view)
         
-        //Delete old photo from storage
-        Services.deleteFileFromFirebaseStorage(downloadUrl: user.imageURLs[index])
+        if index >= 0 && index < user.imageURLs.count && user.imageURLs[index] != "" {
+            Services.deleteFileFromFirebaseStorage(downloadUrl: user.imageURLs[index])
+        }
+        
         // Add new photo to the Storage
         Services.uploadImage(with: image) { result in
             switch result {
             case .success(let imageUrl):
-                self.user.imageURLs[index] = imageUrl
+                if index >= 0 && index < self.user.imageURLs.count && self.user.imageURLs[index] != "" {
+                    self.user.imageURLs[index] = imageUrl
+                } else {
+                    self.user.imageURLs.append( imageUrl)
+                }
                 // Update ImageURLs For that user
                 Services.updateUserImageUrlData(user: self.user) { error in
                     if let error = error  {
@@ -66,10 +73,14 @@ class SettingController: UITableViewController {
                     self.delegate?.settingController(wantToUpdate: self.user)
                 }
             case .failure(let error):
-                print("DEBUG: Eeeror uploading image: \(error.localizedDescription)")
+                print("DEBUG: Error uploading image: \(error.localizedDescription)")
+                hud.dismiss()
             }
         }
+                
+
     }
+
     
     @objc func handleDone() {
         let hud = JGProgressHUD(style: .dark)
@@ -105,6 +116,12 @@ class SettingController: UITableViewController {
         tableView.tableHeaderView = headerView
         headerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 300)
         headerView.delegate = self
+        
+        tableView.tableFooterView = footerView
+        footerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 88)
+        footerView.delegate = self
+        
+        
         imagePicker.delegate = self
     }
     
@@ -181,11 +198,21 @@ extension SettingController: UIImagePickerControllerDelegate , UINavigationContr
         dismiss(animated: true)
     }
     
-    func setHeaderImage(_ image: UIImage?, complition: @escaping (Int) -> Void) {
+    func setHeaderImage(_ image: UIImage?, completion: @escaping (Int) -> Void) {
         guard let image = image else { return }
-        if let selectedButton = headerView.buttons.first(where: { $0.tag == imageInex }) {
-            complition(selectedButton.tag)
-            selectedButton.setImage(image.withRenderingMode(.alwaysOriginal), for: .normal)
+        
+        // Check if the clicked button has an image
+        if let clickedButton = headerView.buttons.first(where: { $0.tag == imageInex && $0.currentImage != nil }) {
+            clickedButton.setImage(image.withRenderingMode(.alwaysOriginal), for: .normal)
+            print("Button Has Image")
+            completion(clickedButton.tag)
+           
+        } else if let index = headerView.buttons.firstIndex(where: { $0.currentImage == nil }) {
+            // If clicked button doesn't have an image, find the first button without an image
+            headerView.buttons[index].setImage(image.withRenderingMode(.alwaysOriginal), for: .normal)
+            print("Button  is Empty")
+            completion(index)
+            
         }
     }
 }
@@ -216,5 +243,25 @@ extension SettingController : SettingCellDelegate {
         }
         
        
+    }
+}
+
+
+//MARK: -SettingFooterDelegate is Logging the user out
+extension SettingController : SettingFooterDelegate {
+    
+    /// Save the updated value of logged_in to UserDefaults
+    private func userLogOut(){
+        NotificationCenter.default.post(name: UserDefaults.didChangeNotification, object: nil)
+    }
+    
+    func handleLogout() {
+        AuthServices.signOut {[ weak self ] error in
+            if error != nil {
+                print("DEBUG: User Cond not Log out")
+                return
+            }
+            self?.userLogOut()
+        }
     }
 }
