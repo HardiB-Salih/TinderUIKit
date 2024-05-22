@@ -13,7 +13,7 @@ struct User {
     var age: Int
     var email: String
     let uid: String
-    let imageURLs: [String]
+    var imageURLs: [String]
     let createdAt: Timestamp
     var images: [UIImage]
     var profession: String
@@ -58,5 +58,5 @@ extension String {
     static let profession = "profession"
     static let bio = "bio"
     static let minSeakingAge = "minSeakingAge"
-    static let maxSeakingAge = "minSeakingAge"
+    static let maxSeakingAge = "maxSeakingAge"
 }

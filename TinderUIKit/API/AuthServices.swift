@@ -30,7 +30,7 @@ enum AuthServicesError: Error {
 struct AuthServices {
     static func registerUser(withCredential credential: AuthCredential, completion: @escaping (Error?) -> Void) {
             // 1. Upload Profile Picture Asynchronously
-            Services.uploadProfilePicture(with: credential.profileImage) { profilePictureResult in
+            Services.uploadImage(with: credential.profileImage) { profilePictureResult in
                 switch profilePictureResult {
                 case .success(let profileImageUrl):
                     // 2. Create User in Firebase Authentication

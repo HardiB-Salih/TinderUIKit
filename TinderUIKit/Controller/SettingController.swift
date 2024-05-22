@@ -11,6 +11,7 @@ let Identifier = "SettingCell"
 
 protocol SettingControllerDelegate: AnyObject {
     func settingController(_ controller: SettingController, wantsToUpdate user: User)
+    func settingController( wantToUpdate user: User)
 }
 
 
@@ -18,7 +19,6 @@ class SettingController: UITableViewController {
     private var user: User
 
     //MARK: - Properties
-    let hud = JGProgressHUD(style: .dark)
 
     private lazy var headerView = SettingHeader(user: user)
     private let imagePicker = UIImagePickerController()
@@ -42,8 +42,49 @@ class SettingController: UITableViewController {
     
     
     //MARK: - API
-    func uploadImage(image: UIImage) {
+    func uploadImage(image: UIImage, index: Int) {
+        let hud = JGProgressHUD(style: .dark)
+        hud.textLabel.text = "Saving Image"
+        hud.show(in: view)
         
+        //Delete old photo from storage
+        Services.deleteFileFromFirebaseStorage(downloadUrl: user.imageURLs[index])
+        // Add new photo to the Storage
+        Services.uploadImage(with: image) { result in
+            switch result {
+            case .success(let imageUrl):
+                self.user.imageURLs[index] = imageUrl
+                // Update ImageURLs For that user
+                Services.updateUserImageUrlData(user: self.user) { error in
+                    if let error = error  {
+                        print("DEBUG: Failed to update User Data: \(error.localizedDescription)")
+                        hud.dismiss()
+                        return
+                    }
+                    hud.dismiss()
+                    // Update the Home current user locally.
+                    self.delegate?.settingController(wantToUpdate: self.user)
+                }
+            case .failure(let error):
+                print("DEBUG: Eeeror uploading image: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    @objc func handleDone() {
+        let hud = JGProgressHUD(style: .dark)
+        hud.textLabel.text = "Saving Image"
+        hud.show(in: view)
+        view.endEditing(true)
+        Services.updateUserData(user: user) { error in
+            if let error = error  {
+                print("DEBUG: Failed to update User Data: \(error.localizedDescription)")
+                hud.dismiss()
+                return
+            }
+            hud.dismiss()
+            self.delegate?.settingController(self, wantsToUpdate: self.user)
+        }
     }
     
     
@@ -71,12 +112,7 @@ class SettingController: UITableViewController {
         dismiss(animated: true)
     }
     
-    @objc func handleDone() {
-        view.endEditing(true)
-        delegate?.settingController(self, wantsToUpdate: user)
-        
-        // Upload Data
-    }
+
 }
 
 
@@ -138,13 +174,17 @@ extension SettingController: UIImagePickerControllerDelegate , UINavigationContr
     func imagePickerController(_ picker: UIImagePickerController,
                                didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         guard let image = info[.originalImage] as? UIImage else { return }
-        setHeaderImage(image)
+        
+        setHeaderImage(image) { index in
+            self.uploadImage(image: image, index: index)
+        }
         dismiss(animated: true)
     }
     
-    func setHeaderImage(_ image: UIImage? ) {
+    func setHeaderImage(_ image: UIImage?, complition: @escaping (Int) -> Void) {
         guard let image = image else { return }
         if let selectedButton = headerView.buttons.first(where: { $0.tag == imageInex }) {
+            complition(selectedButton.tag)
             selectedButton.setImage(image.withRenderingMode(.alwaysOriginal), for: .normal)
         }
     }

@@ -77,11 +77,23 @@ struct Services {
         }
     }
     
+    static func updateUserData(user: User, completion: @escaping CompletionHandler<Error?> ) {
+        let data : [String: Any] = [
+            .fullname: user.fullname,
+            .imageURLs: user.imageURLs,
+            .age: user.age,
+            .bio: user.bio,
+            .profession: user.profession,
+            .maxSeakingAge: user.maxSeakingAge,
+            .minSeakingAge: user.minSeakingAge
+        ]
+        
+        USER_COLLECTION.document(user.uid).updateData(data, completion: completion)
+    }
     
-    
-    static func uploadProfilePicture(with image: UIImage,
-                                     fileName: String = "profile",
-                                     completion: @escaping(Result<String, Error>) -> Void ) {
+    static func uploadImage(with image: UIImage,
+                            fileName: String = "profile",
+                            completion: @escaping(Result<String, Error>) -> Void ) {
         guard let data = image.jpegData(compressionQuality: 0.25) else {
             completion(.failure(ServicesError.failedToConvertToJPEG))
             return
@@ -114,6 +126,52 @@ struct Services {
                 
                 let urlString = downloadURL.absoluteString
                 completion(.success(urlString))
+            }
+        }
+    }
+    
+    static func updateUserImageUrlData(user: User, completion: @escaping CompletionHandler<Error?> ) {
+        let data : [String: Any] = [
+            .imageURLs: user.imageURLs,
+        ]
+        USER_COLLECTION.document(user.uid).updateData(data, completion: completion)
+    }
+    
+    
+    static func deleteFileFromFirebaseStorage(downloadUrl: String) {
+        //    completion: @escaping (Error?) -> Void
+        // Step 1: Extract the path from the download URL
+        func extractPathFromUrl(_ url: String) -> String? {
+            let pattern = "https://firebasestorage.googleapis.com:443/v0/b/tinderuikit.appspot.com/o/"
+            guard let range = url.range(of: pattern) else { return nil }
+            let pathPart = url[range.upperBound...]
+            
+            if let queryIndex = pathPart.range(of: "?")?.lowerBound {
+                let encodedPath = String(pathPart[..<queryIndex])
+                return encodedPath.removingPercentEncoding
+            }
+            return nil
+        }
+        
+        guard let filePath = extractPathFromUrl(downloadUrl) else {
+            //            completion(NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "Invalid download URL"]))
+            print("Invalid download URL")
+            return
+        }
+        
+        print("File Path is: \(filePath)")
+        
+        // Step 2: Create a reference to the file
+        let storageRef = Storage.storage().reference()
+        let fileRef = storageRef.child(filePath)
+        
+        // Step 3: Delete the file
+        fileRef.delete { error in
+            //            completion(error)
+            if let error = error {
+                print("Error deleting file: \(error.localizedDescription)")
+            } else {
+                print("File deleted successfully")
             }
         }
     }

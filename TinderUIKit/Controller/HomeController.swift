@@ -40,8 +40,14 @@ class HomeController: UIViewController {
         configureUI()
         fetchCurrentUser()
         fetchUsers()
- 
- 
+        
+        
+        
+//        // Usage Example
+//        let downloadUrl = "https://firebasestorage.googleapis.com:443/v0/b/tinderuikit.appspot.com/o/images%2Fprofile%2FCBBEB38D-1280-4C88-A057-280123D8A9F2.jpeg?alt=media&token=80f054ea-e149-422f-a28f-6a8158392c57"
+//        
+//        let path = Services.extractPathFromUrl(downloadUrl)
+//        print("DEBUG: THE PATH IS: \(path!)")
     }
     
     //MARK: Helpers
@@ -114,6 +120,10 @@ extension HomeController: HomeNavigationStackViewDelegate {
 
 //MARK: - HomeNavigationStackViewDelegate
 extension HomeController: SettingControllerDelegate {
+    func settingController(wantToUpdate user: User) {
+        self.currentUser = user
+    }
+    
     func settingController(_ controller: SettingController, wantsToUpdate user: User) {
         controller.dismiss(animated: true)
         self.currentUser = user
