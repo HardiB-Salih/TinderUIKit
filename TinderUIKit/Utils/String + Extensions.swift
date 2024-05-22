@@ -107,7 +107,7 @@ enum AppleSystemFont {
 
 // Extension to make the font bold
 extension UIFont {
-    static func systemFont(of styleSize: AppleSystemFont, weight: UIFont.Weight) -> UIFont {
+    static func systemFont(of styleSize: AppleSystemFont , weight: UIFont.Weight = .regular) -> UIFont {
         switch styleSize {
         case .largeTitle:
             return .systemFont(ofSize: AppleSystemFont.largeTitle.fontSize, weight: weight)

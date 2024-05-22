@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 enum SwipeDirection: Int {
     case left = -1
@@ -19,10 +20,9 @@ class CardView: UIView {
     //MARK:  Properties
     private let gradientLayer = CAGradientLayer()
     
-    private lazy var imageView: UIImageView = {
+    private var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
-        imageView.image = cardViewModel.user.images.first
         return imageView
     }()
     
@@ -45,11 +45,8 @@ class CardView: UIView {
     init(viewModel: CardViewModel) {
         self.cardViewModel = viewModel
         super.init(frame: .zero)
-        
+        imageView.sd_setImage(with: viewModel.imageUrl)
         setUpUI()
-        
-        
-        
     }
     
     required init?(coder: NSCoder) {
@@ -143,7 +140,7 @@ class CardView: UIView {
         } else {
             cardViewModel.showPreviousPhoto()
         }
-        imageView.crossDissolveTransition(toImage: cardViewModel.imageToShow, duration: 0.7)
+//        imageView.crossDissolveTransition(toImage: cardViewModel.imageToShow, duration: 0.7)
     }
 
     //MARK: - Private

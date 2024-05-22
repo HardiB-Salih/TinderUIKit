@@ -6,11 +6,21 @@
 //
 
 import UIKit
+import Firebase
 
 class HomeController: UIViewController {
     
-    
     //MARK: - Properties
+    private var users = [User]()
+    private var currentUser : User?
+    
+    private var viewModels = [CardViewModel]() {
+        didSet{
+            configureCards()
+        }
+    }
+    
+    
     private let topStack = HomeNavigationStackView()
     private let deckView: UIView = {
         let view = UIView()
@@ -25,30 +35,49 @@ class HomeController: UIViewController {
     //MARK: - Life sycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .systemBackground
         navigationController?.navigationBar.isHidden = true
         configureUI()
-        configureCards()
+        fetchCurrentUser()
+        fetchUsers()
+ 
+ 
     }
     
-    
     //MARK: Helpers
+    func fetchUsers() {
+        Services.fetchUsers { [self] result in
+            switch result {
+            case .success( let usersData):
+                self.viewModels = usersData.map({ CardViewModel(user: $0 )})
+//                self.users = usersData
+            case .failure( let error):
+                print("DEBUG: Error is \(error)")
+            }
+        }
+    }
+    
+    func fetchCurrentUser() {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        Services.fetchUser(with: uid, completion: { result in
+            switch result {
+            case .success(let user):
+                self.currentUser = user
+            case .failure(_): break
+            }
+        })
+    }
+    
     func configureCards() {
-        let user1 = User(name: "Jane Doe", age: 22, images: [#imageLiteral(resourceName: "jane1.jpg") , #imageLiteral(resourceName: "jane2.jpg") , #imageLiteral(resourceName: "jane3.jpg")])
-        let user2 = User(name: "Kelly John", age: 25, images: [#imageLiteral(resourceName: "kelly1.jpg"), #imageLiteral(resourceName: "kelly2.jpg"), #imageLiteral(resourceName: "kelly3.jpg")])
-        
-        let cardView1 = CardView(viewModel: CardViewModel(user: user1))
-        let cardView2 = CardView(viewModel: CardViewModel(user: user2))
-
-        
-        deckView.addSubview(cardView1)
-        deckView.addSubview(cardView2)
-        
-        cardView1.fillSuperview()
-        cardView2.fillSuperview()
+        viewModels.forEach { viewModel in
+            let cardView = CardView(viewModel: viewModel)
+            deckView.addSubview(cardView)
+            cardView.fillSuperview()
+        }
     }
     
     func configureUI() {
-        view.backgroundColor = .systemBackground
+        topStack.delegate = self
         let stack = UIStackView(arrangedSubviews: [topStack, deckView, bottomStack])
         stack.axis = .vertical
         
@@ -61,7 +90,34 @@ class HomeController: UIViewController {
 //        stack.distribution = .equalCentering
         stack.isLayoutMarginsRelativeArrangement = true
         stack.layoutMargins = .init(top: 0, left: 16, bottom: 0, right: 16)
-
     }
 }
 
+
+//MARK: - HomeNavigationStackViewDelegate
+extension HomeController: HomeNavigationStackViewDelegate {
+    func showSettings() {
+        guard let user = currentUser else { return }
+        let vc = SettingController(user: user)
+        vc.delegate = self
+        let navVC = UINavigationController(rootViewController: vc)
+        let backButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        navVC.modalPresentationStyle = .fullScreen
+        vc.navigationItem.backBarButtonItem = backButtonItem
+        present(navVC, animated: true)
+    }
+    
+    func showMessages() {
+        print("Message Sent")
+    }
+}
+
+//MARK: - HomeNavigationStackViewDelegate
+extension HomeController: SettingControllerDelegate {
+    func settingController(_ controller: SettingController, wantsToUpdate user: User) {
+        controller.dismiss(animated: true)
+        self.currentUser = user
+    }
+    
+    
+}

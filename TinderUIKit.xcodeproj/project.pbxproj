@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D54628E42BFC709400B2903A /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54628E32BFC709400B2903A /* Constant.swift */; };
+		D54628E92BFCA62A00B2903A /* SettingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54628E82BFCA62A00B2903A /* SettingController.swift */; };
+		D54628EB2BFCADC100B2903A /* SettingHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54628EA2BFCADC100B2903A /* SettingHeader.swift */; };
+		D54628ED2BFCC66700B2903A /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54628EC2BFCC66700B2903A /* SettingViewModel.swift */; };
+		D54628EF2BFCC75900B2903A /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54628EE2BFCC75900B2903A /* SettingCell.swift */; };
+		D54628F22BFCF90400B2903A /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = D54628F12BFCF90400B2903A /* SDWebImage */; };
+		D54628F62BFD1B1400B2903A /* JGProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = D54628F52BFD1B1400B2903A /* JGProgressHUD */; };
 		D592DDB72BFA9BB1007464C8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D592DDB62BFA9BB1007464C8 /* AppDelegate.swift */; };
 		D592DDB92BFA9BB1007464C8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D592DDB82BFA9BB1007464C8 /* SceneDelegate.swift */; };
 		D592DDC02BFA9BB9007464C8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D592DDBF2BFA9BB9007464C8 /* Assets.xcassets */; };
@@ -35,6 +42,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D54628E32BFC709400B2903A /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
+		D54628E82BFCA62A00B2903A /* SettingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingController.swift; sourceTree = "<group>"; };
+		D54628EA2BFCADC100B2903A /* SettingHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingHeader.swift; sourceTree = "<group>"; };
+		D54628EC2BFCC66700B2903A /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
+		D54628EE2BFCC75900B2903A /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
 		D592DDB32BFA9BB1007464C8 /* TinderUIKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TinderUIKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D592DDB62BFA9BB1007464C8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D592DDB82BFA9BB1007464C8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -65,9 +77,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D54628F22BFCF90400B2903A /* SDWebImage in Frameworks */,
 				D592DDF52BFBCAF6007464C8 /* FirebaseAuth in Frameworks */,
 				D592DDFB2BFBCAF6007464C8 /* FirebaseStorage in Frameworks */,
 				D592DDF72BFBCAF6007464C8 /* FirebaseFirestore in Frameworks */,
+				D54628F62BFD1B1400B2903A /* JGProgressHUD in Frameworks */,
 				D592DDF92BFBCAF6007464C8 /* FirebaseFirestoreSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -124,6 +138,8 @@
 				D592DDD62BFAA16F007464C8 /* HomeNavigationStackView.swift */,
 				D592DDD82BFAAAA0007464C8 /* ButtomControlsStackView.swift */,
 				D592DDDA2BFB1EE8007464C8 /* CardView.swift */,
+				D54628EA2BFCADC100B2903A /* SettingHeader.swift */,
+				D54628EE2BFCC75900B2903A /* SettingCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -132,6 +148,7 @@
 			isa = PBXGroup;
 			children = (
 				D592DDDE2BFB4C17007464C8 /* CardViewModel.swift */,
+				D54628EC2BFCC66700B2903A /* SettingViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -141,6 +158,7 @@
 			children = (
 				D592DDE42BFB616B007464C8 /* Authentication */,
 				D592DDD22BFA9C8D007464C8 /* HomeController.swift */,
+				D54628E82BFCA62A00B2903A /* SettingController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -153,6 +171,7 @@
 				D592DDE22BFB5DB6007464C8 /* UIView + Extension.swift */,
 				D592DDE92BFB74BD007464C8 /* CustomTextField.swift */,
 				D592DDED2BFB8309007464C8 /* UIButton + Extension.swift */,
+				D54628E32BFC709400B2903A /* Constant.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -197,6 +216,8 @@
 				D592DDF62BFBCAF6007464C8 /* FirebaseFirestore */,
 				D592DDF82BFBCAF6007464C8 /* FirebaseFirestoreSwift */,
 				D592DDFA2BFBCAF6007464C8 /* FirebaseStorage */,
+				D54628F12BFCF90400B2903A /* SDWebImage */,
+				D54628F52BFD1B1400B2903A /* JGProgressHUD */,
 			);
 			productName = TinderUIKit;
 			productReference = D592DDB32BFA9BB1007464C8 /* TinderUIKit.app */;
@@ -228,6 +249,8 @@
 			mainGroup = D592DDAA2BFA9BB1007464C8;
 			packageReferences = (
 				D592DDF32BFBCAF6007464C8 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				D54628F02BFCF90300B2903A /* XCRemoteSwiftPackageReference "SDWebImage" */,
+				D54628F42BFD1B1400B2903A /* XCRemoteSwiftPackageReference "JGProgressHUD" */,
 			);
 			productRefGroup = D592DDB42BFA9BB1007464C8 /* Products */;
 			projectDirPath = "";
@@ -264,14 +287,19 @@
 				D592DDB72BFA9BB1007464C8 /* AppDelegate.swift in Sources */,
 				D592DDFD2BFBD00B007464C8 /* AuthServices.swift in Sources */,
 				D592DDFF2BFBD016007464C8 /* Services.swift in Sources */,
+				D54628E42BFC709400B2903A /* Constant.swift in Sources */,
 				D592DDE82BFB6192007464C8 /* RegistrationViewController.swift in Sources */,
 				D592DDB92BFA9BB1007464C8 /* SceneDelegate.swift in Sources */,
+				D54628EB2BFCADC100B2903A /* SettingHeader.swift in Sources */,
 				D592DDEE2BFB8309007464C8 /* UIButton + Extension.swift in Sources */,
+				D54628EF2BFCC75900B2903A /* SettingCell.swift in Sources */,
 				D592DDE32BFB5DB6007464C8 /* UIView + Extension.swift in Sources */,
 				D592DDD72BFAA16F007464C8 /* HomeNavigationStackView.swift in Sources */,
 				D592DDDD2BFB4A7D007464C8 /* User.swift in Sources */,
+				D54628E92BFCA62A00B2903A /* SettingController.swift in Sources */,
 				D592DDD32BFA9C8D007464C8 /* HomeController.swift in Sources */,
 				D592DDD92BFAAAA0007464C8 /* ButtomControlsStackView.swift in Sources */,
+				D54628ED2BFCC66700B2903A /* SettingViewModel.swift in Sources */,
 				D592DDD52BFAA0C0007464C8 /* Extensions.swift in Sources */,
 				D592DDDF2BFB4C17007464C8 /* CardViewModel.swift in Sources */,
 			);
@@ -486,6 +514,22 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		D54628F02BFCF90300B2903A /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.19.2;
+			};
+		};
+		D54628F42BFD1B1400B2903A /* XCRemoteSwiftPackageReference "JGProgressHUD" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/JonasGessner/JGProgressHUD";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.2.0;
+			};
+		};
 		D592DDF32BFBCAF6007464C8 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -497,6 +541,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		D54628F12BFCF90400B2903A /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D54628F02BFCF90300B2903A /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
+		D54628F52BFD1B1400B2903A /* JGProgressHUD */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D54628F42BFD1B1400B2903A /* XCRemoteSwiftPackageReference "JGProgressHUD" */;
+			productName = JGProgressHUD;
+		};
 		D592DDF42BFBCAF6007464C8 /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D592DDF32BFBCAF6007464C8 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

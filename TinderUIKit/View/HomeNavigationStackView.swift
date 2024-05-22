@@ -7,9 +7,15 @@
 
 import UIKit
 
+protocol HomeNavigationStackViewDelegate : AnyObject {
+    func showSettings()
+    func showMessages()
+}
+
 class HomeNavigationStackView: UIStackView {
     
     //MARK: - Properties
+    weak var delegate: HomeNavigationStackViewDelegate?
     /// #imageLiteral(resourceName: "exampleImage")
     let settingButton = UIButton(type: .system)
     let messageButton = UIButton(type: .system)
@@ -29,6 +35,7 @@ class HomeNavigationStackView: UIStackView {
         settingButton.setImage(settingImage.withRenderingMode(.alwaysOriginal) , for: .normal)
         messageButton.setImage(messageImage.withRenderingMode(.alwaysOriginal) , for: .normal)
         settingButton.addTarget(self, action: #selector(settingButtonClicked), for: .touchUpInside)
+        messageButton.addTarget(self, action: #selector(messageButtonClicked), for: .touchUpInside)
 
         [settingButton, UIView(), tinderIcon, UIView(), messageButton].forEach { view in
             addArrangedSubview(view)
@@ -49,16 +56,21 @@ class HomeNavigationStackView: UIStackView {
         NotificationCenter.default.post(name: UserDefaults.didChangeNotification, object: nil)
     }
     
+    @objc func messageButtonClicked(){
+        delegate?.showMessages()
+    }
+    
     @objc func settingButtonClicked() {
-        AuthServices.signOut { error in
-            if let error = error {
-                // Handle sign-out error
-                print("Sign out failed: \(error.localizedDescription)")
-            } else {
-                // Sign out successful
-                print("User signed out successfully.")
-                self.userLogOut()
-            }
-        }
+        delegate?.showSettings()
+//        AuthServices.signOut { error in
+//            if let error = error {
+//                // Handle sign-out error
+//                print("Sign out failed: \(error.localizedDescription)")
+//            } else {
+//                // Sign out successful
+//                print("User signed out successfully.")
+//                self.userLogOut()
+//            }
+//        }
     }
 }

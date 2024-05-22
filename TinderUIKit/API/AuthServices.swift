@@ -16,6 +16,17 @@ struct AuthCredential {
     let profileImage: UIImage
 }
 
+enum AuthServicesError: Error {
+    case registrationError
+
+    var localizedDescription: String {
+        switch self {
+        case .registrationError:
+            return "Failed to get user after authentication"
+        }
+    }
+}
+
 struct AuthServices {
     static func registerUser(withCredential credential: AuthCredential, completion: @escaping (Error?) -> Void) {
             // 1. Upload Profile Picture Asynchronously
@@ -30,21 +41,22 @@ struct AuthServices {
                             return
                         }
 
-                        guard let user = authResult?.user else {
-                            completion(NSError(domain: "RegistrationError", code: 0, userInfo: [NSLocalizedDescriptionKey: "Failed to get user after authentication"]))
+                        guard let uid = authResult?.user.uid else {
+                            completion(AuthServicesError.registrationError)
                             return
                         }
 
                         // 3. Store User Data in Firestore
                         let fireStoreData: [String: Any] = [
-                            "id": user.uid,
-                            "email": credential.email,
-                            "fullname": credential.fullname,
-                            "profileImageUrl": profileImageUrl,
-                            "timestamp": Timestamp(date: Date())
+                            .uid: uid,
+                            .age: 18,
+                            .email: credential.email,
+                            .fullname: credential.fullname,
+                            .imageURLs: [profileImageUrl],
+                            .createdAt: Timestamp(date: Date())
                         ]
 
-                        Firestore.firestore().collection("users").document(user.uid).setData(fireStoreData) { error in
+                        USER_COLLECTION.document(uid).setData(fireStoreData) { error in
                             if let error = error {
                                 // Handle Firestore error
                                 completion(error)
@@ -82,7 +94,7 @@ struct AuthServices {
                 completion(nil) // Sign out successful, pass nil error
             } catch let error {
                 // Handle the error
-                print("Sign out error: \(error.localizedDescription)")
+//                print("Sign out error: \(error.localizedDescription)")
                 completion(error) // Pass the error to the completion closure
             }
         }

@@ -37,11 +37,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             
             //             if need to add a single view insted of TabBarController.
             let vc = HomeController()
-            let navVC = UINavigationController(rootViewController: vc)
-            let backButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-            vc.navigationItem.backBarButtonItem = backButtonItem
-            navVC.navigationBar.tintColor = .link
-            rootViewController = navVC
+//            let navVC = UINavigationController(rootViewController: vc)
+//            let backButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+//            vc.navigationItem.backBarButtonItem = backButtonItem
+//            navVC.navigationBar.tintColor = .link
+            rootViewController = vc
         } else {
             let vc = LoginViewController()
             let navVC = UINavigationController(rootViewController: vc)

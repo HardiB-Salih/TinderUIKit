@@ -11,7 +11,7 @@ class CustomTextField: UITextField {
     
     private let spacer = UIView()
     
-    init(placeholder: String,
+    init(placeholder: String?,
          isSecureTextEntry: Bool = false,
          keyboardType: UIKeyboardType = .default) {
         super.init(frame: .zero)
@@ -26,7 +26,10 @@ class CustomTextField: UITextField {
         self.layer.cornerCurve = .continuous
         self.layer.borderWidth = 1
         self.layer.borderColor = UIColor.systemGray6.withAlphaComponent(0.4).cgColor
-        attributedPlaceholder = placeholder.attributedString(font: .systemFont(ofSize: 16), textColor: UIColor(white: 1, alpha: 0.7))
+        if let placeholder = placeholder {
+            attributedPlaceholder = placeholder.attributedString(font: .systemFont(ofSize: 16), textColor: UIColor(white: 1, alpha: 0.7))
+        }
+        
         
         // Adding left padding
         spacer.setDimensions(height: 44, width: 12)

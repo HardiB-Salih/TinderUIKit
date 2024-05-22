@@ -11,12 +11,17 @@ class CardViewModel {
     let user: User
     private var imageIndex = 0
     
-    var imageToShow: UIImage {
-        return user.images[imageIndex]
-    }
+    let imageUrl : URL?
+    let imageURLs : [String]
+//    var imageToShow: String {
+//        return user.images[imageIndex]
+//    }
     
     init(user: User) {
         self.user = user
+//        imageUrl = URL(string: user.profileImageUrl)
+        self.imageURLs = user.imageURLs
+        imageUrl = URL(string: imageURLs[0])
     }
     
     /// Advances to the next photo in the user's image collection.
