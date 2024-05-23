@@ -27,7 +27,9 @@ class SettingController: UITableViewController {
     weak var delegate: SettingControllerDelegate?
     init(user: User) {
         self.user = user
-        super.init(style: .plain)
+//        super.init(style: .plain)
+        super.init(nibName: nil, bundle: nil)
+        
     }
     
     required init?(coder: NSCoder) {

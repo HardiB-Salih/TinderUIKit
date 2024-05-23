@@ -42,11 +42,9 @@ class RegistrationViewController: UIViewController {
         emailTextField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
         fullnameTextField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
         passwordTextField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
-        
     }
     
     @objc private func textDidChange(_ sender: UITextField) {
-        //        print("DEBUG: Text Text is \(sender.text)")
         switch sender {
         case emailTextField:
             viewModel.email = sender.text ?? ""
@@ -58,7 +56,6 @@ class RegistrationViewController: UIViewController {
             break
         }
         checkFormStatus()
-        //        print("DEBUG: Form is Valid \(viewModel.formIsValid)")
     }
     
     func checkFormStatus() {

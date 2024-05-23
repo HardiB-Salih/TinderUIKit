@@ -6,10 +6,15 @@
 //
 
 import UIKit
-
+protocol ButtomControlsStackViewDelegate : AnyObject {
+    func handleLike()
+    func handleDislike()
+    func handleRefresh()
+}
 class ButtomControlsStackView: UIStackView {
     
     // MARK: - Properties
+    weak var delegate: ButtomControlsStackViewDelegate?
     let refreshButton = UIButton(type: .system)
     let dislikeButton = UIButton(type: .system)
     let supperLikeButton = UIButton(type: .system)
@@ -29,9 +34,16 @@ class ButtomControlsStackView: UIStackView {
         let boostImage = #imageLiteral(resourceName: "boost_circle")
         
         refreshButton.setImage(refreshImage.withRenderingMode(.alwaysOriginal), for: .normal)
+        refreshButton.addTarget(self, action: #selector(handleRefreshClicked), for: .touchUpInside)
+        
         dislikeButton.setImage(dislikeImage.withRenderingMode(.alwaysOriginal), for: .normal)
+        dislikeButton.addTarget(self, action: #selector(handleDisLikeClicked), for: .touchUpInside)
+        
         supperLikeButton.setImage(supperLikeImage.withRenderingMode(.alwaysOriginal), for: .normal)
+        
         likeButton.setImage(likeImage.withRenderingMode(.alwaysOriginal), for: .normal)
+        likeButton.addTarget(self, action: #selector(handleLikeClicked), for: .touchUpInside)
+        
         boostButton.setImage(boostImage.withRenderingMode(.alwaysOriginal), for: .normal)
         
         // Add buttons to the stack view
@@ -43,5 +55,9 @@ class ButtomControlsStackView: UIStackView {
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    @objc func handleRefreshClicked(){ delegate?.handleRefresh() }
+    @objc func handleDisLikeClicked(){ delegate?.handleDislike()  }
+    @objc func handleLikeClicked(){ delegate?.handleLike()  }
 }
 

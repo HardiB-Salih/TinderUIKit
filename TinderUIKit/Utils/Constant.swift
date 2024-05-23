@@ -8,3 +8,5 @@
 import Firebase
 
 let USER_COLLECTION = Firestore.firestore().collection("users")
+let SWIPES_COLLECTION = Firestore.firestore().collection("swipes")
+let MATCHES_MESSAGE_COLLECTION = Firestore.firestore().collection("matches_messages")

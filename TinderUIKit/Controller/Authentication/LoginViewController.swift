@@ -44,15 +44,12 @@ class LoginViewController: UIViewController {
     }
     
     @objc private func textDidChange(_ sender: UITextField) {
-//        print("DEBUG: Text Text is \(sender.text)")
-        
         if sender == emailTextField {
             viewModel.email = sender.text ?? ""
         } else {
             viewModel.password = sender.text ?? ""
         }
         checkFormStatus()
-        print("DEBUG: Form is Valid \(viewModel.formIsValid)")
     }
     
     func checkFormStatus() {

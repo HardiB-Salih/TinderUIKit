@@ -10,9 +10,19 @@ import SDWebImage
 
 
 let ProfileCellIdentifier = "ProfileCell"
+
+protocol ProfileControllerDelegate: AnyObject {
+    func profileController(_ controller: ProfileController, didLikeUser user: User)
+    func profileController(_ controller: ProfileController, didDislikeUser user: User)
+
+}
+
+
 class ProfileController: UIViewController {
     //MARK: - Properties
     
+    
+    weak var delegate: ProfileControllerDelegate?
     private lazy var blurView: UIVisualEffectView = {
         let blur = UIBlurEffect(style: .regular)
         let view = UIVisualEffectView(effect: blur)
@@ -170,9 +180,9 @@ class ProfileController: UIViewController {
         dismiss(animated: true)
     }
     
-    @objc func handleDisLikeButton() {}
+    @objc func handleDisLikeButton() { delegate?.profileController(self, didDislikeUser: user) }
+    @objc func handleLikeButton() { delegate?.profileController(self, didLikeUser: user)}
     @objc func handleSuperLikeButton() {}
-    @objc func handleLikeButton() {}
 
 }
 

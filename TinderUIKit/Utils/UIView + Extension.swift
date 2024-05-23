@@ -26,6 +26,7 @@ extension UIView {
                        delay: 0,
                        usingSpringWithDamping: 0.6,
                        initialSpringVelocity: 0.1,
+                       options: .curveEaseOut,
                        animations: {
                            animation()
                        },
